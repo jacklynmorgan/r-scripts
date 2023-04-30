@@ -1,0 +1,19 @@
+# Load libraries
+library(pwr)
+
+# Set parameters
+alpha <- 0.05     # significance level
+power <- 0.8      # power
+effect_size <- 0.5  # effect size
+pop_size <- NULL  # population size (set to NULL if unknown)
+two_sided <- TRUE  # two-sided test
+
+# Calculate sample size
+n <- pwr.t.test(d=effect_size, sig.level=alpha, power=power, n=NULL, 
+                alternative=ifelse(two_sided, "two.sided", "one.sided"), 
+                type=ifelse(is.null(pop_size), "raw", "fixed"), 
+                strict=TRUE, 
+                details=FALSE)$n
+
+# Print sample size
+cat("Sample size required:", round(n,0), "\n")
